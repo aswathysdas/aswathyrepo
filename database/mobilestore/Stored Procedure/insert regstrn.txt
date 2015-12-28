@@ -1,0 +1,6 @@
+delimiter //
+create procedure csp_reg(in fname varchar(20),in lname varchar(20),in addres varchar(50),in pincd int(11),in mbnum int(11),in fk_login_id int(11),in dat date)
+begin
+insert into tbl_registration(vchr_fname,vchr_lname,vchr_address,int_pincode,int_mobilenum,fk_int_login_id,dat_date) 
+values(fname,lname,addres,pincd,mbnum,fk_login_id,dat);
+end//

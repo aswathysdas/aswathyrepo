@@ -1,0 +1,6 @@
+delimiter //
+create procedure csp_category(in categry_nm varchar(20))
+begin
+insert into tbl_category(vchr_category_nm) 
+values(categry_nm);
+end//

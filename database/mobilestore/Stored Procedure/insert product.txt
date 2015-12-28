@@ -1,0 +1,6 @@
+delimiter //
+create procedure csp_product(in prdctnm varchar(20),in price int,in descrptn varchar(50),in quantity int(11),in fk_sub_id int(11))
+begin
+insert into tbl_product(vchr_prdct_nm,int_price,vchr_desc,int_quantity,fk_int_sub_id) 
+values(prdctnm,price,descrptn,quantity,fk_sub_id);
+end//

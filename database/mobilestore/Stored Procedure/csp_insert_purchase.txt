@@ -1,0 +1,5 @@
+delimiter //
+create procedure csp_insert_purchase(in fk_int_product_id int,in int_quantity int,in int_total_amount int,in dat_date date,in fk_int_reg_id int)
+begin
+insert into tbl_purchase(fk_int_product_id,int_quantity,int_total_amount,dat_date,fk_int_reg_id) values (fk_int_product_id,int_quantity,int_total_amount,dat_date,fk_int_reg_id);
+end//

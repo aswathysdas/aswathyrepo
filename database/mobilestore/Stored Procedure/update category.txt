@@ -1,0 +1,5 @@
+delimiter //
+create procedure csp_updt_categry(in ctgry_id int(11),in ctgry_nm varchar(20))
+begin 
+update tbl_category set vchr_category_nm=ctgry_nm where pk_int_category_id=ctgry_id;
+end//
