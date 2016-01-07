@@ -1,9 +1,3 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -21,17 +15,66 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<script src="<?php echo base_url('js/expandcollapsed.js');?>" type="text/javascript"></script>
 		  <script>
 		    // You can also use "$(window).load(function() {"
-			    $(function () {
+			//     $(function () {
 			
-			      // Slideshow 1
-			      $("#slider1").responsiveSlides({
-			        maxwidth: 1600,
-			        speed: 600
-			      });
-			});
+			//       // Slideshow 1
+			//       $("#slider1").responsiveSlides({
+			//         maxwidth: 1600,
+			//         speed: 600
+			//       });
+			// });
 			    
 
-			   
+			   // function show(){
+			   // 	$('#shw').load('subonchng');
+			   // }
+			   // function show(){
+			   // 	$('#shw').load("viewpc");
+			   // }
+			   function fun(){
+			   	var va=$('#inputcat').val();
+			   	$.ajax({
+			   		'type':"POST",
+			   		'url' :"<?php echo base_url(); ?>"+"index.php/category_ctrl/viewsubcat",
+			   		'datatype':"json",
+			   		'data' :{name:va},
+			   		'success':function(data){
+			   			$('#cat').empty();
+							var dat= JSON.parse(data);
+							//alert(dat[1].pk_int_sub_id);
+							var toAppend="<option>"+'Select Sub-category'+"</option>";
+							for (var i = 0; i <=dat.length-1; i++) {
+
+								toAppend+="<option value='"+dat[i].pk_int_sub_id+"'>"+dat[i].vchr_sub_categry_nm+"</option>";
+							};
+							$('#cat').append(toAppend);
+			   		}
+			   	});
+			   }
+			   function show(){
+			   	var v=$('#cat').val();
+			   	//alert(v);
+			   		$.ajax({
+			   		'type':"POST",
+			   		'url' :"<?php echo base_url(); ?>"+"index.php/category_ctrl/viewpc",
+			   		'datatype':"json",
+			   		'data' :{name:v},
+			   		'success':function(data){
+			   			//alert(data);
+			   			$('#ct').empty();
+							var dat= JSON.parse(data);
+							//alert(dat[1].pk_int_sub_id);
+							var toAppend="<tr><th>"+'SL No'+"</th><th>"+'Product Name'+"</th><th>"+'Price'+"</th><th>"+'Description'+"</th><th>"+'Quanity'+"</th></tr>";
+							for (var i = 0; i <=dat.length-1; i++) {
+
+								toAppend+="<tr><td>"+dat[i].pk_int_prdct_id+"</td><td>"+dat[i].vchr_prdct_nm+"</td><td>"+dat[i].int_price+"</td><td>"+dat[i].vchr_desc+"</td><td>"+dat[i].int_quantity+"</td></tr>";
+							};
+							$('#ct').append(toAppend);
+			   		}
+			   	});
+			   }
+
+
 		  </script>
 		  <style>
 		           ul li
@@ -74,7 +117,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                        }
 
 		  
-                  
+                #ct th,tr,td{
+                	padding: 10px;
+                }
 
 		  </style>
 	</head>
@@ -109,24 +154,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<li><a href="about.html">About</a></li>
 				<li><a href="">Add</a>
 					<ul>
-						<li><a href="../Category_ctrl">Categories</a></li>
-						<li><a href="../Category_ctrl/subcat">Sub-Categories</a></li>
-						<li><a href="../Category_ctrl/addproduct">Products</a></li>
+						<li><a href="Category_ctrl">Categories</a></li>
+						<li><a href="Category_ctrl/subcat">Sub-Categories</a></li>
+						<li><a href="Category_ctrl/addproduct">Products</a></li>
 					</ul>
 				</li>
 				<li><a href="">Edit</a>
 					<ul>
-						<li><a href="../Category_ctrl/editcat">Categories</a></li>
-						<li><a href="../Category_ctrl/vieweditsub">Sub-Categories</a></li>
+						<li><a href="">Categories</a></li>
+						<li><a href="">Sub-Categories</a></li>
 						<li><a href="">Products</a></li>
 					</ul>
 
 				</li>
 				<li><a href="">View</a>
 					<ul>
-						<li><a href="../Category_ctrl/viewc">Categories</a></li>
-						<li><a href="../Category_ctrl/viewsub">Sub-Categories</a></li>
-						<li><a href="../Category_ctrl/viewprdct">Products</a></li>
+						<li><a href="">Categories</a></li>
+						<li><a href="">Sub-Categories</a></li>
+						<li><a href="">Products</a></li>
 					</ul>
 
 				</li>
@@ -137,15 +182,49 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</div>
 		<!----End-top-nav---->
 		<!----End-Header---->
-	<!--start-image-slider---->
+        <!--start-image-slider---->
 					<div class="wrap">
-					
+					  <div style="padding:50px;">
+					  	<div class="row" id="div1">
+					  		<div class="col-sm-offset-3 col-sm-6">
+					  			<div class="panel panel-default">
+					  				<div class="panel-heading">
+					  					<h4>Sub Categories</h4>
+					  				</div>
+					  				<div class="panel-body">
+					  					<form class="form-horizontal" method="post" action="">
+					  					<div class="form-group">
+					  							<label class="col-sm-5 control-label">Category Name</label>
+					  							<div class="col-sm-5">
+					  								<select name="cat" id="inputcat" onChange="fun()">
+					  									<option>Select Category</option>
+					  									<?php 
+					  								foreach ($category as $row) {
+					  									echo '<option value="'.$row->pk_int_category_id.'">'.$row->vchr_category_nm.'</option>';
+					  								}
+					  								?>
+					  								</select>
+					  							</div>
+					  						</div>
+					  						<div class="form-group">
+					  							<label for="cat" class="col-sm-5 control-label">Subcategory Name</label>
+					  							<div class="col-sm-5">
+					  								<select name="subcat" id="cat" onChange="show()">
+					  									<option>Select Sub-Category</option>
+					  								</select>
+					  							</div>
+					  						</div>
+					  					</form>
+					  					<br><br>
+					  					<div id="shw">
+					  						<table id="ct" class="table table-striped"></table>
+					  					</div>
+					  				</div>
+					  			</div>
+					  		</div>
+					  	</div>
+					  </div>
 					<!--End-image-slider---->
-					<div id="imge4">
-
-						<img src="<?php echo base_url();?>pic1.png">
-
-					</div>
 					</div>
 		    <div class="clear"> </div>
 		    <div class="wrap">
@@ -267,7 +346,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		    </div>
 		    <div class="clear"> </div>
 		    </div>
-		<div class="footer">
+		    <div class="footer">
 			<div class="wrap">
 			<div class="section group">
 				<div class="col_1_of_4 span_1_of_4">
@@ -292,9 +371,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<input type="text"><input type="submit" value="go" />
 					<h3>Fallow Us:</h3>
 					 <ul>
-					 	<li><a href="#"><img src="<?php echo base_url();?>images/twitter.png" title="twitter" />Twitter</a></li>
-					 	<li><a href="#"><img src="<?php echo base_url();?>images/facebook.png" title="Facebook" />Facebook</a></li>
-					 	<li><a href="#"><img src="<?php echo base_url();?>images/rss.png" title="Rss" />Rss</a></li>
+					 	<li><a href="#"><img src="images/twitter.png" title="twitter" />Twitter</a></li>
+					 	<li><a href="#"><img src="images/facebook.png" title="Facebook" />Facebook</a></li>
+					 	<li><a href="#"><img src="images/rss.png" title="Rss" />Rss</a></li>
 					 </ul>
 				</div>
 			</div>

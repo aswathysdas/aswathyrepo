@@ -1,0 +1,5 @@
+delimiter //
+create procedure csp_slct_sub_cat(in id int)
+begin
+select vchr_sub_categry_nm from tbl_sub_category join tbl_category on pk_int_category_id=fk_int_category_id where pk_int_category_id=id;
+end//

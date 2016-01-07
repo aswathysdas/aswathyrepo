@@ -1,9 +1,3 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -74,7 +68,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                        }
 
 		  
-                  
+                #ct th,tr,td{
+                	padding: 10px;
+                }
 
 		  </style>
 	</head>
@@ -109,24 +105,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<li><a href="about.html">About</a></li>
 				<li><a href="">Add</a>
 					<ul>
-						<li><a href="../Category_ctrl">Categories</a></li>
-						<li><a href="../Category_ctrl/subcat">Sub-Categories</a></li>
-						<li><a href="../Category_ctrl/addproduct">Products</a></li>
+						<li><a href="Category_ctrl">Categories</a></li>
+						<li><a href="Category_ctrl/subcat">Sub-Categories</a></li>
+						<li><a href="Category_ctrl/addproduct">Products</a></li>
 					</ul>
 				</li>
 				<li><a href="">Edit</a>
 					<ul>
-						<li><a href="../Category_ctrl/editcat">Categories</a></li>
-						<li><a href="../Category_ctrl/vieweditsub">Sub-Categories</a></li>
+						<li><a href="">Categories</a></li>
+						<li><a href="">Sub-Categories</a></li>
 						<li><a href="">Products</a></li>
 					</ul>
 
 				</li>
 				<li><a href="">View</a>
 					<ul>
-						<li><a href="../Category_ctrl/viewc">Categories</a></li>
-						<li><a href="../Category_ctrl/viewsub">Sub-Categories</a></li>
-						<li><a href="../Category_ctrl/viewprdct">Products</a></li>
+						<li><a href="">Categories</a></li>
+						<li><a href="">Sub-Categories</a></li>
+						<li><a href="">Products</a></li>
 					</ul>
 
 				</li>
@@ -137,15 +133,36 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</div>
 		<!----End-top-nav---->
 		<!----End-Header---->
-	<!--start-image-slider---->
+        <!--start-image-slider---->
 					<div class="wrap">
-					
+					  <div style="padding:50px;">
+					  	<div class="row" id="div1">
+					  		<div class="col-sm-offset-4 col-sm-4">
+					  			<div class="panel panel-default">
+					  				<div class="panel-heading">
+					  					<h4>Categories</h4>
+					  				</div>
+					  				<div class="panel-body">
+					  					<table id="ct" class="table table-striped">
+					  						<tr>
+					  							<th>SL NO</th>
+					  							<th>Category Name</th>
+					  						</tr>
+					  						<?php
+					  						$c="0"; 
+					  						foreach ($category as $row) {
+					  							echo "<tr>";
+					  							echo "<td>".++$c."</td><td>".$row->vchr_category_nm."</td>";
+					  							echo "</tr>";
+					  						}
+					  						?>
+					  					</table>
+					  				</div>
+					  			</div>
+					  		</div>
+					  	</div>
+					  </div>
 					<!--End-image-slider---->
-					<div id="imge4">
-
-						<img src="<?php echo base_url();?>pic1.png">
-
-					</div>
 					</div>
 		    <div class="clear"> </div>
 		    <div class="wrap">
@@ -267,7 +284,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		    </div>
 		    <div class="clear"> </div>
 		    </div>
-		<div class="footer">
+		    <div class="footer">
 			<div class="wrap">
 			<div class="section group">
 				<div class="col_1_of_4 span_1_of_4">
@@ -292,9 +309,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<input type="text"><input type="submit" value="go" />
 					<h3>Fallow Us:</h3>
 					 <ul>
-					 	<li><a href="#"><img src="<?php echo base_url();?>images/twitter.png" title="twitter" />Twitter</a></li>
-					 	<li><a href="#"><img src="<?php echo base_url();?>images/facebook.png" title="Facebook" />Facebook</a></li>
-					 	<li><a href="#"><img src="<?php echo base_url();?>images/rss.png" title="Rss" />Rss</a></li>
+					 	<li><a href="#"><img src="images/twitter.png" title="twitter" />Twitter</a></li>
+					 	<li><a href="#"><img src="images/facebook.png" title="Facebook" />Facebook</a></li>
+					 	<li><a href="#"><img src="images/rss.png" title="Rss" />Rss</a></li>
 					 </ul>
 				</div>
 			</div>

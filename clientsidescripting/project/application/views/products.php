@@ -23,20 +23,50 @@
 			//         speed: 600
 			//       });
 			// });
-			function loadcategory(){
-				var select=document.getElementById('ct');
-				select.onchange=updateSubCats;
+			// function loadcategory(){
+			// 	var select=document.getElementById('ct');
+			// 	select.onchange=updateSubCats;
+			// }
+			// function updateSubCats(){
+			// 	<?php 
+			// 	foreach($subcategory as $row){
+			// 		if(select== $row->fk_int_category_id){
+			// 			echo '<option value="'.$row->fk_int_category_id.'">'.$row->vchr_sub_categry_nm.'</option>';
+			// 		}
+			// 	}
+			// 	?>
+			// }	
+
+			function show(){
+				
+
+				var valu=$('#ct').val();
+				//alert(valu);
+                
+					$.ajax({
+					
+						'type' :"POST",
+						'url' :"<?php echo base_url(); ?>"+"index.php/category_ctrl/viewsubcat",
+						'datatype' :"json",
+						'data' :{name:valu},
+						'success':function(data){
+								//alert(data);
+							$('#vals').empty();
+							var dat= JSON.parse(data);
+							//alert(dat[1].pk_int_sub_id);
+							var toAppend='';
+							for (var i = 0; i <=dat.length-1; i++) {
+
+								toAppend+="<option value='"+dat[i].pk_int_sub_id+"'>"+dat[i].vchr_sub_categry_nm+"</option>";
+							};
+							$('#vals').append(toAppend);
+						}
+				
+			}); 
 			}
-			function updateSubCats(){
-				<?php 
-				foreach($subcategory as $row){
-					if(select== $row->fk_int_category_id){
-						echo '<option value="'.$row->fk_int_category_id.'">'.$row->vchr_sub_categry_nm.'</option>';
-					}
-				}
-				?>
-			}	   
-		  </script>
+
+		 
+		   </script>
 		  <style>
 		           ul li
                      {
@@ -152,26 +182,25 @@
 					  					<span class="glyphicon glyphicon-list-alt"></span> Add Products
 					  				</div>
 					  				<div class="panel-body">
-					  					<form class="form-horizontal" method="post" action="subcat" onload="loadcategory()">
+					  					<form class="form-horizontal" method="post" action="">
 					  						<div class="form-group">
-					  						<label for="catnm" class="col-sm-4 control-label">Category</label>
+					  						<label class="col-sm-4 control-label">Category</label>
 					  						<div class="col-sm-7">
-					  							<select id="catnm" name="sub" id="ct" onchange="insertpro(this.value)"><?php 
+					  							<select name="sub" id="ct" onChange="show()">
+					  								<option>Select Category</option>
+					  								<?php 
 					  			               foreach ($category as $row) {
-					  			    	echo '<option value="'.$row->pk_int_category_id.'">'.$row->vchr_category_nm.'</option>';
+					  			    	     echo '<option value="'.$row->pk_int_category_id.'">'.$row->vchr_category_nm.'</option>';
 					  			            }
 					  			              ?>
 					  			           </select>
 					  						</div>
 					  						</div>
 					  						<div class="form-group">
-					  							<label for="subc" class="col-sm-4 control-label">Sub-category</label>
+					  							<label class="col-sm-4 control-label">Sub-category</label>
 					  							<div class="col-sm-7">
-					  								<select id="subc" name="subcat" id="vals"><?php 
-					  			     //           foreach ($subcategory as $row) {
-					  			    	// echo '<option value="'.$row->fk_int_category_id.'">'.$row->vchr_sub_categry_nm.'</option>';
-					  			     //        }
-					  			              ?>
+					  								<select name="subcat" id="vals">
+					  									<option>Select sub-category</option>
 					  			              </select>
 					  							</div>
 					  						</div>

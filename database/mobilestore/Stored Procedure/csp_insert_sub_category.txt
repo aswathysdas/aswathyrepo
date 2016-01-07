@@ -1,5 +1,5 @@
 delimiter //
-create procedure csp_insert_sub_category(in vchr_sub_name varchar(20),in fk_int_cat_id int)
+create procedure csp_insert_sub_category(in vchr_sub_name varchar(30),in fk_int_cat_id int)
 begin
-insert into tbl_sub_category(vchr_sub_category_nm,fk_int_category_id) values (vchr_sub_name,fk_int_cat_id);
+insert into tbl_sub_category(vchr_sub_categry_nm,fk_int_category_id) values (vchr_sub_name,fk_int_cat_id);
 end//

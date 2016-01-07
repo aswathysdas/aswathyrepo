@@ -1,0 +1,15 @@
+delimiter //
+create procedure csp_del_cat(in id int)
+begin
+declare done int default 0;
+declare exit handler for sqlexception,sqlwarning set done=1;
+
+START TRANSACTION;
+delete from tbl_category where pk_int_category_id=id;
+delete from tbl_sub_category where fk_int_category_id=id;
+if done=0 then
+COMMIT;
+else
+ROLLBACK;
+end if;
+end//

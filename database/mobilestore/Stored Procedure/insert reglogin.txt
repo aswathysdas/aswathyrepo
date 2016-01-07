@@ -1,0 +1,20 @@
+delimiter //
+create procedure csp_reg_log(in email varchar(30),in pasword varchar(30),in fnm varchar(30),in lnm varchar(30),in addrs varchar(50),in pincode int(11),in mbnum int(11))
+begin
+declare done int default 0;
+declare id int;
+declare dt date default CURDATE();
+declare exit handler for sqlexception,sqlwarning set done=1;
+
+START TRANSACTION;
+insert into tbl_login(vchr_email,vchr_password,fk_int_user_role_id) values(email,pasword,2);
+set id=(select last_insert_id());
+set dt=CURDATE();
+insert into tbl_registration(vchr_fname,vchr_lname,vchr_address,int_pincode,int_mobilenum,fk_int_login_id,dat_date) 
+values(fnm,lnm,addrs,pincode,mbnum,id,dt);
+if done=0 then
+COMMIT;
+else
+ROLLBACK;
+end if;
+end//

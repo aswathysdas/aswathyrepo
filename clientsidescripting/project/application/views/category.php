@@ -15,14 +15,14 @@
 		<script src="<?php echo base_url('js/expandcollapsed.js');?>" type="text/javascript"></script>
 		  <script>
 		    // You can also use "$(window).load(function() {"
-			    $(function () {
+			//     $(function () {
 			
-			      // Slideshow 1
-			      $("#slider1").responsiveSlides({
-			        maxwidth: 1600,
-			        speed: 600
-			      });
-			});
+			//       // Slideshow 1
+			//       $("#slider1").responsiveSlides({
+			//         maxwidth: 1600,
+			//         speed: 600
+			//       });
+			// });
 			    
 
 			   

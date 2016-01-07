@@ -45,15 +45,87 @@ class Category_ctrl extends CI_Controller {
 		}
 	}
 	public function addproduct(){
+		if(isset($_POST['addsub'])){
+			$this->load->model('Category_model');
+		    $this->Category_model->insertproduct();
+		    echo "successfully inserted";
+		}
+		else{
 		$id=$this->input->post('sub');
 		$this->load->model('Category_model');
 		$data['category']=$this->Category_model->selectcat();
-		$data['subcategory']=$this->Category_model->insertpro();
 		//$this->load->view('header');
 		$this->load->view('products',$data);
 		//$this->load->view('header');
-
-
 	}
-	
+	}
+	public function viewsubcat(){
+		$this->load->model('Category_model');
+		$data['subcategory']=$this->Category_model->subshw($_POST);
+		$this->load->view('dataencode',$data);
+	}
+	public function viewc(){
+		$this->load->model('Category_model');
+		$data['category']=$this->Category_model->selectcat();
+		$this->load->view('viewcat',$data);
+	}
+	public function viewsub(){
+		$this->load->model('Category_model');
+		$data['category']=$this->Category_model->selectcat();
+		//$data['subcategory']=$this->Category_model->viewsubcategory();
+		$this->load->view('viewsubcat',$data);
+	}
+	public function subonchng(){
+		$this->load->model('Category_model');
+		$data['subcategory']=$this->Category_model->viewsubcategory($_POST);
+		$this->load->view('onchangeviewsub',$data);
+	}
+	public function editcat(){
+		$this->load->model('Category_model');
+		$data['category']=$this->Category_model->selectcat();
+		//$this->load->view('header');
+		$this->load->view('editcategory',$data);
+
+		//$this->load->view('footer');
+	}
+	public function delcat(){
+		$this->load->model('Category_model');
+		$this->Category_model->delselectedcat($_POST);
+	}
+	public function showcat(){
+		$this->load->model('Category_model');
+		$data['cate']=$this->Category_model->viewcat($_POST);
+		//$this->load->view('header');
+		$this->load->view('catencode',$data);
+	}
+	public function updatecat(){
+		
+		$this->load->model('Category_model');
+		$this->Category_model->updtcat($_POST);
+	}
+	public function viewprdct(){
+		$this->load->model('Category_model');
+		$data['category']=$this->Category_model->selectcat();
+		$this->load->view('viewproduct',$data);
+	}
+	public function viewpc(){
+		$this->load->model('Category_model');
+		$data['product']=$this->Category_model->viewproductonchng($_POST);
+		$this->load->view('prod',$data);
+	}
+	public function vieweditsub(){
+		$this->load->model('Category_model');
+		$data['category']=$this->Category_model->selectcat();
+		$this->load->view('editsub',$data);
+	}
+	public function getsubshow(){
+		$this->load->model('Category_model');
+		$data['subcaw']=$this->Category_model->getsubcat($_POST);
+		$this->load->view('editsubencode',$data);
+	}
+	public function updatesubca(){
+		$this->load->model('Category_model');
+		$this->Category_model->editsubcategory();
+	}
+
 }

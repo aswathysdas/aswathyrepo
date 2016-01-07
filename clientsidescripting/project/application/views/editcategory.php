@@ -1,10 +1,3 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-<!DOCTYPE HTML>
 <html>
 	<head>
 		<title>Mobilestore Website Template | Home :: W3layouts</title>
@@ -21,17 +14,63 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<script src="<?php echo base_url('js/expandcollapsed.js');?>" type="text/javascript"></script>
 		  <script>
 		    // You can also use "$(window).load(function() {"
-			    $(function () {
+			//     $(function () {
 			
-			      // Slideshow 1
-			      $("#slider1").responsiveSlides({
-			        maxwidth: 1600,
-			        speed: 600
-			      });
-			});
-			    
+			//       // Slideshow 1
+			//       $("#slider1").responsiveSlides({
+			//         maxwidth: 1600,
+			//         speed: 600
+			//       });
+			// });
+
+
+			    function editcat(val){
+			    	//$('#edit').load('showcat');
+			    		$.ajax({
+			   		'type':"POST",
+			   		'url' :"<?php echo base_url(); ?>"+"index.php/category_ctrl/showcat",
+			   		'datatype':"json",
+			   		'data' :{name:val},
+			   		'success':function(data){
+			   			//alert(data);
+			   			$('#edit').empty();
+							var dat= JSON.parse(data);
+							//alert(dat[1].pk_int_sub_id);
+							var toAppend='';
+							for (var i = 0; i <=dat.length-1; i++) {
+
+								toAppend+="<input type='hidden' name='catid' value='"+dat[i].pk_int_category_id+"'><input id='txt1' type='text' id='inputcat' class='form-control' placeholder='"+dat[i].vchr_category_nm+"' name='ctgry'><br><button type='submit' name='add' class='btn btn-success'>"+'Submit'+"</button>";
+							};
+							$('#edit').append(toAppend);
+			   		}
+			   	});
 
 			   
+			    }
+
+
+
+			    function deletecat(c){
+
+			    		$.ajax({
+			   		'type':"POST",
+			   		'url' :"<?php echo base_url(); ?>"+"index.php/category_ctrl/delcat",
+			   		'data' :{name:c},
+			   		'success':function(data){
+			   			if (data=="YES") {alert("There is an error in deletion");} else{
+			   				alert("successfully deleted");
+			   				  setInterval('autoRefresh1()', 1000);
+			   			};
+			   			
+			   		}
+			   	});
+
+			    }
+
+			   function autoRefresh1()
+                      {
+	                     window.location.reload();
+                      }
 		  </script>
 		  <style>
 		           ul li
@@ -74,12 +113,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                        }
 
 		  
-                  
-
+                  #ct th,tr,td{
+                	padding: 2px;
+                }
 		  </style>
 	</head>
 	<body>
-		<div class="wrap">
+<div class="wrap">
 		<!----start-Header---->
 		<div class="header">
 			<div class="search-bar">
@@ -109,24 +149,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<li><a href="about.html">About</a></li>
 				<li><a href="">Add</a>
 					<ul>
-						<li><a href="../Category_ctrl">Categories</a></li>
-						<li><a href="../Category_ctrl/subcat">Sub-Categories</a></li>
-						<li><a href="../Category_ctrl/addproduct">Products</a></li>
+						<li><a href="Category_ctrl">Categories</a></li>
+						<li><a href="Category_ctrl/subcat">Sub-Categories</a></li>
+						<li><a href="Category_ctrl/addproduct">Products</a></li>
 					</ul>
 				</li>
 				<li><a href="">Edit</a>
 					<ul>
-						<li><a href="../Category_ctrl/editcat">Categories</a></li>
-						<li><a href="../Category_ctrl/vieweditsub">Sub-Categories</a></li>
+						<li><a href="">Categories</a></li>
+						<li><a href="">Sub-Categories</a></li>
 						<li><a href="">Products</a></li>
 					</ul>
 
 				</li>
 				<li><a href="">View</a>
 					<ul>
-						<li><a href="../Category_ctrl/viewc">Categories</a></li>
-						<li><a href="../Category_ctrl/viewsub">Sub-Categories</a></li>
-						<li><a href="../Category_ctrl/viewprdct">Products</a></li>
+						<li><a href="">Categories</a></li>
+						<li><a href="">Sub-Categories</a></li>
+						<li><a href="">Products</a></li>
 					</ul>
 
 				</li>
@@ -137,15 +177,47 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</div>
 		<!----End-top-nav---->
 		<!----End-Header---->
-	<!--start-image-slider---->
+        <!--start-image-slider---->
 					<div class="wrap">
-					
+					  <div style="padding:50px;">
+					  	<div class="row" id="div1">
+					  		<div class="col-sm-offset-4 col-sm-4">
+					  			<div class="panel panel-default">
+					  				<div class="panel-heading">
+					  					<h4>Categories</h4>
+					  				</div>
+					  				<div class="panel-body" id="div">
+					  					 
+					  					<table id="ct">
+					  						<tr>
+					  							<th>SL NO</th>
+					  							<th>Category Name</th>
+					  							<th></th>
+					  						</tr>
+					  						<?php
+					  						$c="0"; 
+					  						foreach ($category as $row) {
+					  							echo "<tr>";
+					  							echo "<td>".++$c."</td><td>".$row->vchr_category_nm."</td>";
+					  							echo "<td><button type='button' class='btn btn-link' onclick='editcat(this.value)' value='".$row->pk_int_category_id."' id='".$row->pk_int_category_id."'>Edit</button><button type='button' onClick='deletecat(this.value)' class='btn btn-link' value='".$row->pk_int_category_id."' id='".$row->pk_int_category_id."'>Delete</button></td>";
+					  							echo "</tr>";
+					  						}
+					  						?>
+					  					</table>
+					  					<br>
+					  					<div class="form-group">
+					  					<form method="post" action="updatecat">
+					  		              <div  id="edit"></div>
+					  		              <div ></div>
+					  		            </form>
+					                   </div>
+					  				</div>
+					  			</div>
+					  		</div>
+					  	</div>
+					  <div id="delt"></div>
+					  </div>
 					<!--End-image-slider---->
-					<div id="imge4">
-
-						<img src="<?php echo base_url();?>pic1.png">
-
-					</div>
 					</div>
 		    <div class="clear"> </div>
 		    <div class="wrap">
@@ -267,7 +339,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		    </div>
 		    <div class="clear"> </div>
 		    </div>
-		<div class="footer">
+		    <div class="footer">
 			<div class="wrap">
 			<div class="section group">
 				<div class="col_1_of_4 span_1_of_4">
