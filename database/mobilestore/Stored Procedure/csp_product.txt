@@ -1,0 +1,20 @@
+delimiter //
+create procedure csp_product(in prdctnm varchar(20),in price int,in descrptn varchar(50),in quantity int(11),in fk_sub_id int(11),in selprice int(11),in prdctimg varchar(30),in sideview varchar(30))
+begin
+declare done int default 0;
+declare k int;
+declare exit handler for sqlexception,sqlwarning set done=1;
+
+START TRANSACTION;
+insert into tbl_product(vchr_prdct_nm,int_price,vchr_desc,fk_int_sub_id,int_sell_price,vchr_product_img,vchr_product_side_view) 
+values(prdctnm,price,descrptn,fk_sub_id,selprice,prdctimg,sideview);
+
+set k=(select last_insert_id());
+
+insert into tbl_stock(fk_int_prdct_id,int_quantity) values (k,quantity);
+if done=0 then
+COMMIT;
+else
+ROLLBACK;
+end if;
+end//

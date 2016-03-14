@@ -1,0 +1,16 @@
+delimiter //
+create procedure csp_prdct_updt(in prdct_id int(11),in prdct_nm varchar(20),in price int(11),in descrptn varchar(20),in qty int(11))
+begin
+declare done int default 0;
+declare exit handler for sqlexception,sqlwarning set done=1;
+
+START TRANSACTION;
+update tbl_product set vchr_prdct_nm=prdct_nm,int_price=price,vchr_desc=descrptn
+where pk_int_prdct_id=prdct_id;
+update tbl_stock set int_quantity=qty where fk_int_prdct_id=prdct_id;
+if done=0 then
+COMMIT;
+else
+ROLLBACK;
+end if;
+end//

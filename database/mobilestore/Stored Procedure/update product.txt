@@ -1,8 +1,0 @@
-delimiter //
-create procedure csp_prdct_updt(in prdct_id int(11),in prdct_nm varchar(20),in price int(11),in descrptn varchar(20),in qty int(11))
-begin
-update tbl_product set vchr_prdct_nm=prdct_nm,
-int_price=price,
-vchr_desc=descrptn,
-int_quantity=qty where pk_int_prdct_id=prdct_id;
-end//

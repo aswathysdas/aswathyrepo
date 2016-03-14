@@ -1,0 +1,5 @@
+delimiter //
+create procedure csp_slct(in id int)
+begin
+select * from tbl_sub_category where fk_int_category_id=id;
+end//

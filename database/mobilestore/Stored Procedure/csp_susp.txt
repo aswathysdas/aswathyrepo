@@ -1,0 +1,5 @@
+delimiter //
+create procedure csp_susp(in id int)
+begin
+update tbl_registration set vchr_status='Inactive' where pk_int_reg_id=id;
+end//

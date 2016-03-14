@@ -1,5 +1,21 @@
 delimiter //
-create procedure csp_insert_purchase(in fk_int_product_id int,in int_quantity int,in int_total_amount int,in dat_date date,in fk_int_reg_id int)
+create procedure csp_insert_purchase(in fk_int_product_id int,in qty int,in amount int,in fk_int_reg_id int)
 begin
-insert into tbl_purchase(fk_int_product_id,int_quantity,int_total_amount,dat_date,fk_int_reg_id) values (fk_int_product_id,int_quantity,int_total_amount,dat_date,fk_int_reg_id);
+declare done int default 0;
+declare amt int;
+declare dat date default CURDATE();
+declare exit handler for sqlexception,sqlwarning set done=1;
+
+START TRANSACTION;
+
+set dat=CURDATE();
+set amt=amount*qty;
+insert into tbl_purchase(fk_int_product_id,int_quantity,int_total_amount,dat_date,fk_int_login_id) values (fk_int_product_id,qty,amt,dat,fk_int_reg_id);
+
+update tbl_stock set int_quantity=int_quantity-qty where fk_int_prdct_id=fk_int_product_id;
+if done=0 then
+COMMIT;
+else
+ROLLBACK;
+end if;
 end//

@@ -1,5 +1,0 @@
-delimiter //
-create procedure csp_insert_stock(in fk_int_product_id int,in int_quantity int)
-begin
-insert into tbl_stock(fk_int_product_id,int_quantity) values (fk_int_product_id,int_quantity);
-end//
