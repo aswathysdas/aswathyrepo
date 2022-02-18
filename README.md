@@ -24,5 +24,4 @@ frequent k-length category sets. After that, it scans again the
 transaction database to determine frequent category sets among 
 the candidates. 
 
-#### Abstract
 
