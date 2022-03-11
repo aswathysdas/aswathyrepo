@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://php.trainees.baabtra.com/Mobilestore/';
+$config['base_url'] = 'http://aswathysdas/aswathysdasrepo/';
 
 /*
 |--------------------------------------------------------------------------
