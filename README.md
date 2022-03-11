@@ -3,7 +3,7 @@
 
  A website for online shopping of electronic gadget.
 Mobile store supports PHP, Javascript, AJAX, and Mysql.
-  https://github.com/aswathysdasrepo/
+  https://github.com/aswathyrepo/
 
 #### Workflows
 
